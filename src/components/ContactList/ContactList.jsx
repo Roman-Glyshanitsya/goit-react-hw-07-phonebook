@@ -16,13 +16,14 @@ const ContactList = () => {
         
     return (
         <List>
-            {filterContact().map(({ id, name, number }) =>
-                <ContactItem
+            {contactItems && filterContact().map(({ id, name, number }) => {
+                return <ContactItem
                     key={id}
                     id={id}
                     name={name}
                     number={number}
                 />
+            }
             )}
         </List>
     );

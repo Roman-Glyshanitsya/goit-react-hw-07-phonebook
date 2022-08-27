@@ -1,19 +1,19 @@
 import ContactItem from '../ContactItem/ContactItem';
 import { List } from './ContactList.styled';
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactSlice';
+import { useSelector } from 'react-redux';
+import { useGetContactByNameQuery } from 'redux/contactApi';
 
 const ContactList = () => {
-    const dispatch = useDispatch();
-    const contactItems = useSelector(state => state.contacts.items);
-    const filter = useSelector(state => state.contacts.filter);
+    const contactItems = useGetContactByNameQuery().data;
+    const { filter } = useSelector(state => state.filter);
 
     const filterContact = () => {
-        return contactItems.filter(contactItem => {
-            return contactItem.name.toLowerCase().includes(filter.toLowerCase());
-        });
-    };
-
+        const visibleContacts = contactItems.filter(contact =>
+            contact.name.toLowerCase().includes(filter.toLowerCase())
+            );
+            return visibleContacts;
+        };
+        
     return (
         <List>
             {filterContact().map(({ id, name, number }) =>
@@ -22,7 +22,6 @@ const ContactList = () => {
                     id={id}
                     name={name}
                     number={number}
-                    onClick={() => dispatch(deleteContact(id))}
                 />
             )}
         </List>

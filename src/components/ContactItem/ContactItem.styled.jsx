@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Item = styled.li`
-    width: 300px;
+    width: 400px;
     padding: 5px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     border-top: 1px solid rgb(31, 31, 32);
 `
